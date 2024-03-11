@@ -3,6 +3,8 @@
 
 #define VECTOR_INITIAL_CAPACITY 10
 
+void* ptr;
+
 typedef struct {
   double *data;
   int size;

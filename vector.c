@@ -1,10 +1,12 @@
 #include "vector.h"
 #include <stdlib.h>
 
+
+
 Vector *vector_create(void) {
   Vector *vector = malloc(sizeof(Vector));
   if(vector==NULL){
-  
+    return vector;
   }
   vector->size = 0;
   vector->capacity = VECTOR_INITIAL_CAPACITY;
@@ -15,9 +17,15 @@ Vector *vector_create(void) {
 void vector_push(Vector *vector, double element) {
   if (vector->size == vector->capacity) {
     vector->capacity *= 2;
-    vector->data = realloc(vector->data, sizeof(double) * vector->capacity);
+    ptr = realloc(vector->data, sizeof(double) * vector->capacity);
   }
-  vector->data[vector->size++] = element;
+  if(ptr==NULL){
+    free(ptr);
+  }
+  else{
+    vector->data = realloc(vector->data, sizeof(double) * vector->capacity);
+    vector->data[vector->size++] = element;
+  }
 }
 
 double vector_get(const Vector *vector, int index) {
