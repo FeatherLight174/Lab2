@@ -56,3 +56,8 @@ void vector_free(Vector *vector) {
     return 0;
   }
 }
+
+void another_vector_free(Vector **vector){
+  free(*vector);
+}
+
