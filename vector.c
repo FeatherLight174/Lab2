@@ -35,7 +35,12 @@ void vector_push(Vector *vector, double element) {
 
 double vector_get(const Vector *vector, int index) {
   if(vector!=NULL){
-    return vector->data[index];
+    if(index>=vector->size){
+      return 0;
+    }
+    else{
+      return vector->data[index];
+    }
   }
   else{
     return 0;
