@@ -1,41 +1,42 @@
 #include "vector.h"
 #include <stdlib.h>
 
-
-
 Vector *vector_create(void) {
   Vector *vector = malloc(sizeof(Vector));
   if(vector==NULL){
     return vector;
   }
-  vector->size = 0;
-  vector->capacity = VECTOR_INITIAL_CAPACITY;
-  vector->data = malloc(sizeof(double) * vector->capacity);
-  return vector;
+  else{
+    vector->size = 0;
+    vector->capacity = VECTOR_INITIAL_CAPACITY;
+    vector->data = malloc(sizeof(double) * vector->capacity);
+    return vector;
+  }
 }
 
 void vector_push(Vector *vector, double element) {
   if(vector!=NULL){
     if (vector->size == vector->capacity) {
       vector->capacity *= 2;
-      ptr = realloc(vector->data, sizeof(double) * vector->capacity);
     }
+    double* ptr = realloc(vector->data, sizeof(double) * vector->capacity);   
     if(ptr==NULL){
-      free(ptr);
+      free(ptr); 
+      free(vector->data);
+      free(vector);
+      vector=NULL;
     }
     else{
-      vector->data = realloc(vector->data, sizeof(double) * vector->capacity);
+      vector->data = ptr;
       vector->data[vector->size++] = element;
     }
-  }
-  else{
-    return 0;
+    
   }
 }
 
 double vector_get(const Vector *vector, int index) {
   if(vector!=NULL){
-    if(index>=vector->size){
+    if(index>vector->size){
       return 0;
     }
     else{
@@ -53,11 +54,11 @@ void vector_free(Vector *vector) {
     free(vector);
   }
   else{
-    return 0;
+    return;
   }
 }
 
-void another_vector_free(Vector **vector){
+/*void another_vector_free(Vector **vector){
   free(*vector);
-}
+}*/
 
